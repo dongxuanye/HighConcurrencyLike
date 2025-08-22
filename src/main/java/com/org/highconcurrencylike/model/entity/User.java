@@ -4,28 +4,30 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
+import java.io.Serial;
 import java.io.Serializable;
 import lombok.Data;
 
 /**
  * 
- * @TableName user
+ * {@code @TableName} user
  */
 @TableName(value ="user")
 @Data
 public class User implements Serializable {
     /**
-     * 
+     * 主键
      */
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
-     * 
+     * 用户名
      */
-    @TableField(value = "username")
     private String username;
 
+    @Serial
     @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -3524144183364052334L;
 }

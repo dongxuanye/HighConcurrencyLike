@@ -1,4 +1,4 @@
-package com.yuyuan.thumb.config;
+package com.org.highconcurrencylike.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

@@ -4,41 +4,44 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
+
+import lombok.Builder;
 import lombok.Data;
 
 /**
  * 
- * @TableName thumb
+ * {@code @TableName} thumb
  */
 @TableName(value ="thumb")
 @Data
+@Builder
 public class Thumb implements Serializable {
     /**
      * 
      */
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
-     * 
+     * 用户id
      */
-    @TableField(value = "userId")
-    private Long userid;
+    private Long userId;
 
     /**
-     * 
+     * 博客id
      */
-    @TableField(value = "blogId")
-    private Long blogid;
+    private Long blogId;
 
     /**
      * 创建时间
      */
-    @TableField(value = "createTime")
-    private Date createtime;
+    private Date createTime;
 
+    @Serial
     @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 3153940838520608648L;
 }

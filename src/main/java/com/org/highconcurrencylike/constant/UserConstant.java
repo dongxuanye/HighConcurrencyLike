@@ -1,4 +1,4 @@
-package com.yuyuan.thumb.constant;
+package com.org.highconcurrencylike.constant;
 
 /**
  * @author pine

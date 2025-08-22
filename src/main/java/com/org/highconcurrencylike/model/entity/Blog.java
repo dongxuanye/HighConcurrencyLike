@@ -4,13 +4,15 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 
 /**
  * 
- * @TableName blog
+ * {@code @TableName} blog 博客表
  */
 @TableName(value ="blog")
 @Data
@@ -18,51 +20,45 @@ public class Blog implements Serializable {
     /**
      * 
      */
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
      * 
      */
-    @TableField(value = "userId")
     private Long userid;
 
     /**
      * 标题
      */
-    @TableField(value = "title")
     private String title;
 
     /**
      * 封面
      */
-    @TableField(value = "coverImg")
-    private String coverimg;
+    private String coverImg;
 
     /**
      * 内容
      */
-    @TableField(value = "content")
     private String content;
 
     /**
      * 点赞数
      */
-    @TableField(value = "thumbCount")
-    private Integer thumbcount;
+    private Integer thumbCount;
 
     /**
      * 创建时间
      */
-    @TableField(value = "createTime")
-    private Date createtime;
+    private Date createTime;
 
     /**
      * 更新时间
      */
-    @TableField(value = "updateTime")
-    private Date updatetime;
+    private Date updateTime;
 
+    @Serial
     @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -6326186387137803411L;
 }

@@ -1,4 +1,4 @@
-package com.yuyuan.thumb.common;
+package com.org.highconcurrencylike.common;
 
 /**
  * 返回工具类
