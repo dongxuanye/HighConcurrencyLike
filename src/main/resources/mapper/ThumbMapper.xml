@@ -6,9 +6,9 @@
 
     <resultMap id="BaseResultMap" type="com.org.highconcurrencylike.model.entity.Thumb">
             <id property="id" column="id" />
-            <result property="userid" column="userId" />
-            <result property="blogid" column="blogId" />
-            <result property="createtime" column="createTime" />
+            <result property="userId" column="userId" />
+            <result property="blogId" column="blogId" />
+            <result property="createTime" column="createTime" />
     </resultMap>
 
     <sql id="Base_Column_List">

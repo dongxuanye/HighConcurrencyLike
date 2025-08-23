@@ -6,17 +6,29 @@
 
     <resultMap id="BaseResultMap" type="com.org.highconcurrencylike.model.entity.Blog">
             <id property="id" column="id" />
-            <result property="userid" column="userId" />
+            <result property="userId" column="userId" />
             <result property="title" column="title" />
-            <result property="coverimg" column="coverImg" />
+            <result property="coverImg" column="coverImg" />
             <result property="content" column="content" />
-            <result property="thumbcount" column="thumbCount" />
-            <result property="createtime" column="createTime" />
-            <result property="updatetime" column="updateTime" />
+            <result property="thumbCount" column="thumbCount" />
+            <result property="createTime" column="createTime" />
+            <result property="updateTime" column="updateTime" />
     </resultMap>
 
     <sql id="Base_Column_List">
         id,userId,title,coverImg,content,thumbCount,
         createTime,updateTime
     </sql>
+    <update id="batchUpdateThumbCount">
+        update blog
+        set thumbCount = thumbCount + CASE id
+        <foreach collection="countMap.entrySet()" item="value" index="key">
+            WHEN #{key} THEN #{value}
+        </foreach>
+        END
+        where id IN
+        <foreach collection="countMap.keySet()" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
 </mapper>

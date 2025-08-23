@@ -26,7 +26,7 @@ public class Blog implements Serializable {
     /**
      * 
      */
-    private Long userid;
+    private Long userId;
 
     /**
      * 标题
