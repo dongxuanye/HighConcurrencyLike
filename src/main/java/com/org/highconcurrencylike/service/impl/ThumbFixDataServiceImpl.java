@@ -86,6 +86,6 @@ public class ThumbFixDataServiceImpl {
             blogMapper.batchUpdateThumbCount(blogThumbCountMap);
         }
 
-        Thread.startVirtualThread(() -> redisTemplate.delete(tempThumbKey));
+        redisTemplate.delete(tempThumbKey);
     }
 }
