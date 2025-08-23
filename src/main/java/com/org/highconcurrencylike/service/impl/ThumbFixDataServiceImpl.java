@@ -76,16 +76,21 @@ public class ThumbFixDataServiceImpl {
             blogThumbCountMap.put(blogId, blogThumbCountMap.getOrDefault(blogId, 0L) + thumbType);
         }
 
+        // 保存点赞记录，但是大概会有10秒左右的延迟，这个应该是可以容忍
+        // 或者使用在存储的时候，把时间也放进来
         thumbService.saveBatch(thumbList);
 
         if (needRemove) {
+            // 取消点赞的移除记录
             thumbService.remove(wrapper);
         }
 
         if (!blogThumbCountMap.isEmpty()) {
+            // 更新博客点赞数
             blogMapper.batchUpdateThumbCount(blogThumbCountMap);
         }
 
+        // 移除临时的点赞记录
         redisTemplate.delete(tempThumbKey);
     }
 }
