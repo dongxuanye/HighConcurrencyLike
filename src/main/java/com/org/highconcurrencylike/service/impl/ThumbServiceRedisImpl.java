@@ -26,7 +26,7 @@ import java.util.Arrays;
  * redis 实现升级版
  * 与原来的逻辑相比，删除了事务和锁，使用Lua脚本保证点赞和取消点赞操作的原子性，提升接口性能。
 */
-@Service("ThumbService") // 这里可以，按照名字注入使用
+@Service("ThumbServiceRedis") // 这里可以，按照名字注入使用
 @Slf4j
 @RequiredArgsConstructor
 public class ThumbServiceRedisImpl extends ServiceImpl<ThumbMapper, Thumb>

@@ -24,7 +24,7 @@ import java.util.Map;
 @Slf4j
 public class ThumbFixDataServiceImpl {
 
-    @Resource(name = "ThumbService")
+    @Resource(name = "thumbServiceLocalCache")
     private ThumbService thumbService;
 
     @Resource

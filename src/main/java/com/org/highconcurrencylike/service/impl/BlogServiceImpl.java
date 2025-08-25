@@ -35,7 +35,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog>
     private UserService userService;
 
     @Lazy
-    @Resource
+    @Resource(name = "thumbServiceLocalCache")
     private ThumbService thumbService;
 
     @Override
