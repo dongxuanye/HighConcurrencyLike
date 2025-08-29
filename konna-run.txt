@@ -1,3 +1,33 @@
+安装pulsar
+1.编写配置文件
+2.docker-compose up -d
+version: '3.8'
+
+services:
+  pulsar-standalone:
+    image: apachepulsar/pulsar:4.0.3
+    container_name: pulsar-standalone
+    command: bin/pulsar standalone
+    ports:
+      - "6650:6650"    # Pulsar binary protocol (broker)
+      - "8080:8080"    # Pulsar HTTP admin & REST API
+    volumes:
+      - pulsardata:/pulsar/data
+      - pulsarconf:/pulsar/conf
+    hostname: pulsar-standalone
+    environment:
+      - PULSAR_PREFIX_bin/pulsar=standalone
+    # 可选：设置内存限制或 JVM 参数
+    # environment:
+    #   - PULSAR_MEM=" -Xms512m -Xmx512m -XX:MaxDirectMemorySize=1g"
+    #   - PULSAR_EXTRA_OPTS="-Dpulsar.log.root.path=/pulsar/logs"
+    restart: unless-stopped
+
+# 定义命名卷
+volumes:
+  pulsardata:
+  pulsarconf:
+
 测试使用pulsar消息队列落库消息
 
 2025-08-29T15:55:07.141+08:00  INFO 11360 --- [HighConcurrencyLike] [ntainer#1-0-C-1] c.o.h.listener.thumb.ThumbConsumer       : ThumbConsumer processBatch: 1
@@ -33,3 +63,7 @@
 消费者一端完成处理
 2025-08-29T16:52:07.364+08:00  INFO 13124 --- [HighConcurrencyLike] [ntainer#0-0-C-1] c.o.h.listener.thumb.ThumbConsumer       : ThumbConsumer processBatch: 1
 2025-08-29T16:52:07.422+08:00  INFO 13124 --- [HighConcurrencyLike] [ntainer#0-0-C-1] c.o.h.listener.thumb.ThumbConsumer       : 完成批量点赞消息处理
+
+安装TiDB数据库
+1.curl --proto '=https' --tlsv1.2 -sSf https://tiup-mirrors.pingcap.com/install.sh | sh
+2.tiup playground --tag thumb --db.host 0.0.0.0
