@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/thumb")
 public class ThumbController {  
-    @Resource(name = "thumbServiceLocalCache")
+    @Resource(name = "thumbServiceMQ")
     private ThumbService thumbService;
   
     @PostMapping("/do")

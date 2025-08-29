@@ -1,0 +1,35 @@
+测试使用pulsar消息队列落库消息
+
+2025-08-29T15:55:07.141+08:00  INFO 11360 --- [HighConcurrencyLike] [ntainer#1-0-C-1] c.o.h.listener.thumb.ThumbConsumer       : ThumbConsumer processBatch: 1
+2025-08-29T15:55:07.321+08:00  INFO 11360 --- [HighConcurrencyLike] [ntainer#1-0-C-1] c.o.h.listener.thumb.ThumbConsumer       : 批量删除点赞记录
+2025-08-29T15:55:07.331+08:00  INFO 11360 --- [HighConcurrencyLike] [ntainer#1-0-C-1] c.o.h.listener.thumb.ThumbConsumer       : 完成批量点赞消息处理
+
+2025-08-29T16:00:07.452+08:00  INFO 11360 --- [HighConcurrencyLike] [ntainer#1-0-C-1] c.o.h.listener.thumb.ThumbConsumer       : ThumbConsumer processBatch: 2
+2025-08-29T16:00:07.459+08:00  INFO 11360 --- [HighConcurrencyLike] [ntainer#1-0-C-1] c.o.h.listener.thumb.ThumbConsumer       : 完成批量点赞消息处理
+
+测试死信队列重试
+2025-08-29T16:07:09.099+08:00  INFO 16088 --- [HighConcurrencyLike] [ntainer#1-0-C-1] c.o.h.listener.thumb.ThumbConsumer       : ThumbConsumer processBatch: 1
+2025-08-29T16:07:10.113+08:00  INFO 16088 --- [HighConcurrencyLike] [lsar-timer-28-1] o.a.p.client.impl.NegativeAcksTracker    : [ConsumerBase{subscription='thumb-subscription', consumerName='mHRFW', topic='persistent://public/default/thumb-topic'}] 1 messages will be re-delivered
+2025-08-29T16:07:10.240+08:00  INFO 16088 --- [HighConcurrencyLike] [ntainer#1-0-C-1] c.o.h.listener.thumb.ThumbConsumer       : ThumbConsumer processBatch: 1
+2025-08-29T16:07:12.461+08:00  INFO 16088 --- [HighConcurrencyLike] [lsar-timer-28-1] o.a.p.client.impl.NegativeAcksTracker    : [ConsumerBase{subscription='thumb-subscription', consumerName='mHRFW', topic='persistent://public/default/thumb-topic'}] 1 messages will be re-delivered
+2025-08-29T16:07:12.480+08:00  INFO 16088 --- [HighConcurrencyLike] [ntainer#1-0-C-1] c.o.h.listener.thumb.ThumbConsumer       : ThumbConsumer processBatch: 1
+2025-08-29T16:07:16.816+08:00  INFO 16088 --- [HighConcurrencyLike] [lsar-timer-28-1] o.a.p.client.impl.NegativeAcksTracker    : [ConsumerBase{subscription='thumb-subscription', consumerName='mHRFW', topic='persistent://public/default/thumb-topic'}] 1 messages will be re-delivered
+2025-08-29T16:07:16.855+08:00  INFO 16088 --- [HighConcurrencyLike] [ntainer#1-0-C-1] c.o.h.listener.thumb.ThumbConsumer       : ThumbConsumer processBatch: 1
+重试四次无果后放入死信队列进行处理
+2025-08-29T16:07:25.199+08:00  INFO 16088 --- [HighConcurrencyLike] [r-client-io-1-3] o.a.p.c.impl.ProducerStatsRecorderImpl   : Starting Pulsar producer perf with config: {"topicName":"thumb-dlq-topic","producerName":"persistent://public/default/thumb-topic-thumb-subscription-mHRFW-3tCXF-DLQ","sendTimeoutMs":30000,"blockIfQueueFull":false,"maxPendingMessages":0,"maxPendingMessagesAcrossPartitions":0,"messageRoutingMode":"RoundRobinPartition","hashingScheme":"JavaStringHash","cryptoFailureAction":"FAIL","batchingMaxPublishDelayMicros":1000,"batchingPartitionSwitchFrequencyByPublishDelay":10,"batchingMaxMessages":1000,"batchingMaxBytes":131072,"batchingEnabled":false,"chunkingEnabled":true,"chunkMaxMessageSize":-1,"encryptionKeys":[],"compressionType":"NONE","initialSequenceId":null,"autoUpdatePartitions":true,"autoUpdatePartitionsIntervalSeconds":60,"multiSchema":true,"accessMode":"Shared","lazyStartPartitionedProducers":false,"properties":{},"initialSubscriptionName":null,"nonPartitionedTopicExpected":false}
+2025-08-29T16:07:25.200+08:00  INFO 16088 --- [HighConcurrencyLike] [r-client-io-1-3] o.a.p.c.impl.ProducerStatsRecorderImpl   : Pulsar client config: {"serviceUrl":"pulsar://192.168.147.130:6650","authPluginClassName":null,"authParams":null,"authParamMap":null,"operationTimeoutMs":30000,"lookupTimeoutMs":30000,"statsIntervalSeconds":60,"numIoThreads":8,"numListenerThreads":8,"connectionsPerBroker":1,"connectionMaxIdleSeconds":60,"useTcpNoDelay":true,"useTls":false,"tlsKeyFilePath":null,"tlsCertificateFilePath":null,"tlsTrustCertsFilePath":null,"tlsAllowInsecureConnection":false,"tlsHostnameVerificationEnable":false,"concurrentLookupRequest":5000,"maxLookupRequest":50000,"maxLookupRedirects":20,"maxNumberOfRejectedRequestPerConnection":50,"keepAliveIntervalSeconds":30,"connectionTimeoutMs":10000,"requestTimeoutMs":60000,"readTimeoutMs":60000,"autoCertRefreshSeconds":300,"initialBackoffIntervalNanos":100000000,"maxBackoffIntervalNanos":60000000000,"enableBusyWait":false,"listenerName":null,"useKeyStoreTls":false,"sslProvider":null,"tlsKeyStoreType":"JKS","tlsKeyStorePath":null,"tlsKeyStorePassword":null,"tlsTrustStoreType":"JKS","tlsTrustStorePath":null,"tlsTrustStorePassword":null,"tlsCiphers":[],"tlsProtocols":[],"memoryLimitBytes":67108864,"proxyServiceUrl":null,"proxyProtocol":null,"enableTransaction":false,"dnsLookupBindAddress":null,"dnsLookupBindPort":0,"dnsServerAddresses":[],"socks5ProxyAddress":null,"socks5ProxyUsername":null,"socks5ProxyPassword":null,"description":null,"openTelemetry":null}
+2025-08-29T16:07:25.203+08:00  INFO 16088 --- [HighConcurrencyLike] [r-client-io-1-6] o.a.pulsar.client.impl.ProducerImpl      : [thumb-dlq-topic] [persistent://public/default/thumb-topic-thumb-subscription-mHRFW-3tCXF-DLQ] Creating producer on cnx [id: 0x11f46643, L:/192.168.144.1:19689 - R:/192.168.147.130:6650]
+2025-08-29T16:07:25.215+08:00  INFO 16088 --- [HighConcurrencyLike] [r-client-io-1-6] o.a.pulsar.client.impl.ProducerImpl      : [thumb-dlq-topic] [persistent://public/default/thumb-topic-thumb-subscription-mHRFW-3tCXF-DLQ] Created producer on cnx [id: 0x11f46643, L:/192.168.144.1:19689 - R:/192.168.147.130:6650]
+2025-08-29T16:07:25.255+08:00  INFO 16088 --- [HighConcurrencyLike] [ntainer#0-0-C-1] c.o.h.listener.thumb.ThumbConsumer       : dlq message = 14:0:-1
+2025-08-29T16:07:25.255+08:00  INFO 16088 --- [HighConcurrencyLike] [ntainer#0-0-C-1] c.o.h.listener.thumb.ThumbConsumer       : 消息 14:0:-1 已入库
+2025-08-29T16:07:25.255+08:00  INFO 16088 --- [HighConcurrencyLike] [ntainer#0-0-C-1] c.o.h.listener.thumb.ThumbConsumer       : 已通知相关人员 康娜酱 处理消息 14:0:-1
+
+对账机制测试
+手动减少文章2的点赞数量，并删除对应的记录
+定时任务构造点赞事件发送到点赞主题中
+2025-08-29T16:52:00.339+08:00  INFO 13124 --- [HighConcurrencyLike] [   scheduling-1] c.o.h.job.ThumbReconcileJob              : 用户=1，差异值=[2]
+2025-08-29T16:52:00.529+08:00  INFO 13124 --- [HighConcurrencyLike] [   scheduling-1] c.o.h.job.ThumbReconcileJob              : 用户=2，差异值=[]
+2025-08-29T16:52:00.530+08:00  INFO 13124 --- [HighConcurrencyLike] [   scheduling-1] c.o.h.job.ThumbReconcileJob              : 对账任务结束，耗时=521ms
+消费者一端完成处理
+2025-08-29T16:52:07.364+08:00  INFO 13124 --- [HighConcurrencyLike] [ntainer#0-0-C-1] c.o.h.listener.thumb.ThumbConsumer       : ThumbConsumer processBatch: 1
+2025-08-29T16:52:07.422+08:00  INFO 13124 --- [HighConcurrencyLike] [ntainer#0-0-C-1] c.o.h.listener.thumb.ThumbConsumer       : 完成批量点赞消息处理

@@ -16,7 +16,7 @@ import java.util.Set;
 /**
  * 补偿操作，放在凌晨操作
  */
-@Component
+//@Component
 @Slf4j
 public class SyncThumb2DBCompensatoryJob {
 

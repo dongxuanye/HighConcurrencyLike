@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 /**
  * 定时将Redis中的临时点赞数据同步到数据库
  */
-@Component
+//@Component
 @Slf4j
 public class SyncThumb2DBJob {
 
